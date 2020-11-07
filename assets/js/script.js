@@ -8,6 +8,10 @@ var choiceB = document.getElementById("b")
 var choiceC = document.getElementById("c")
 
 
+var timeEl = document.querySelector(".time");
+var mainEl = document.getElementById("main");
+var secondsLeft = timeRemaining();
+
 var questions = [
     {
         question: "What is JavaScript?",
@@ -44,7 +48,7 @@ var questions = [
     }, 
    
     ]
-console.log(questions);
+
 
 startBtn.addEventListener("click", function () {
     startScreen.setAttribute("class", "hide")
@@ -54,6 +58,10 @@ startBtn.addEventListener("click", function () {
     setAnswers()
 
 })
+
+function timeRemaining() {
+    return 60;
+}
 
 function buildCard() {
     var currentQuestion = questions[Q].question;
@@ -73,12 +81,29 @@ function setAnswers() {
 
 choiceA.addEventListener("click", function() {
     if (questions[Q].answer==="a"){
-        alert("correct")
+        alert("Correct!")
         
     }
-    else{alert("wrong answer")
-        //timer would go here
-    }
+    else{alert("Sorry, wrong answer")
+
+        //The first timer would go below:
+
+        function setTime() {
+         var timerInterval = setInterval(function() {
+             secondsLeft--;
+             timeEl.textContent = `${secondsLeft} seconds left to finish the quiz.`;
+    
+        if(secondsLeft === 0) {
+          clearInterval(timerInterval);
+          sendMessage();
+        }
+    
+      }, 1000);
+
+}
+
+  setTime();
+
 
 Q++
 
@@ -87,15 +112,14 @@ Q++
     setAnswers()
 
 
-
-})
+}
 
 choiceB.addEventListener("click", function() {
     if (questions[Q].answer==="b"){
-        alert("correct")
+        alert("Correct!")
 
     }
-    else{alert("wrong answer")
+    else{alert("Sorry, wrong answer")
     // timer would go here
     }
 
@@ -106,25 +130,21 @@ Q++
     setAnswers()
 
 
-
 })
 
 choiceC.addEventListener("click", function() {
     if (questions[Q].answer==="c"){
-        alert("correct")
+        alert("Correct!")
 
     }
-    else{alert("wrong answer")
+    else{alert("Sorry, wrong answer")
     //timer would go here
     }
-
 
 Q++
 
     buildCard()
 
     setAnswers()
-
-
 
 })
